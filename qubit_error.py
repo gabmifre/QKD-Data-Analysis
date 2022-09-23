@@ -9,6 +9,13 @@ import hist_helper as hp
 Returns list of errors for early and late time-bin qubits.
 Error is calculated as:
     qubit error = (# entries in other bin) / (# entries in both bins)
+Printmodes: 0- print nothing
+            1- print the list at the end
+            2- print the qubits followed by their error
+                   
+Example call:
+    f=h5py.File('data/data_10s_adq_short_seq.h5', 'r')
+    allQubitErrorRate(f, 0, 0)
 """
 def allQubitErrorRate(file: h5py.File, print_mode: int=0, hist_num: int=0):
     a = file.attrs

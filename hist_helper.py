@@ -58,6 +58,7 @@ Sums all counts in a histogram dataset that have a time value between
 The 'offset' tells us to start looking at indices beginning at that offset,
     and we return the index of the last valid datapoint as the next offset.
     This assumes all points are added sequentially.
+Start must be less than or equal to end.
 Returns a tuple of (total counts in the range, last valid index for offset).
 """
 def integrateHistCounts(data: h5py.Dataset, start: float=0, end: float=0, offset: float=0):
