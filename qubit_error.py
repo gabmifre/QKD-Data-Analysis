@@ -4,6 +4,7 @@
 
 import h5py
 import hist_helper as hp
+import matplotlib.pyplot as plt
 
 """
 Returns list of errors for early and late time-bin qubits.
@@ -32,8 +33,10 @@ def allQubitErrorRate(file: h5py.File, print_mode: int=0, hist_num: int=0):
 
         qubit = qubit_seq[i]
         if qubit == 'P':
+            errors.append(0)
             pass
         elif qubit == '0':
+            errors.append(0)
             pass
         else:
             early_start = (i * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num])
@@ -46,10 +49,10 @@ def allQubitErrorRate(file: h5py.File, print_mode: int=0, hist_num: int=0):
 
             if qubit == 'E':
                 error = late_counts / (early_counts + late_counts)
-                errors.append(error)
+                errors.append(100 * error)
             elif qubit == 'L':
                 error = early_counts / (early_counts + late_counts)
-                errors.append(error)
+                errors.append(100 * error)
             else:
                 print('WARNING: unknown qubit found in sequence')
 
@@ -59,3 +62,9 @@ def allQubitErrorRate(file: h5py.File, print_mode: int=0, hist_num: int=0):
         print('Qubit errors: ', str(errors))
 
     return errors
+
+def plotErrorRates(errors):
+    plt.figure()
+    plt.ylabel('Error Rate (%)')
+    plt.plot(errors)
+    plt.show()

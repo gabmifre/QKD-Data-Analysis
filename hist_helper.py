@@ -25,19 +25,18 @@ def plotHist(f: h5py.File, hist_num: int, lines: bool=False):
 
     plt.figure()
     plt.plot(data[0], data[1])
-    plt.xlabel('time')
-    plt.ylabel('counts')
-    plt.title('hist #' + str(hist_num))
+    plt.xlabel('Time (ps)')
+    plt.ylabel('Counts')
 
     if lines:
         a = f.attrs
         for i in range(2 * int(a['qkd_param_num_qubits'][hist_num])):
             if ((i+1) % 2):
-                plt.axvline(x=(i/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num]), color='g', ls='--', lw=1)
-                plt.axvline(x=(i/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num] + a['qkd_param_phases'][hist_num]), color='r', ls='--', lw=1)
+                plt.axvline(x=(i/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num]), color='g', ls='--', lw=.5)
+                plt.axvline(x=(i/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num] + a['qkd_param_phases'][hist_num]), color='r', ls='--', lw=.5)
             else:
-                plt.axvline(x=((i-1)/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num] + a['qkd_param_integration_windows'][hist_num]), color='g', ls='--', lw=1)
-                plt.axvline(x=((i-1)/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num] + a['qkd_param_integration_windows'][hist_num] + a['qkd_param_phases'][hist_num]), color='r', ls='--', lw=1)
+                plt.axvline(x=((i-1)/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num] + a['qkd_param_integration_windows'][hist_num]), color='g', ls='--', lw=.5)
+                plt.axvline(x=((i-1)/2 * a['qkd_param_qubit_times'][hist_num] + a['qkd_param_offsets'][hist_num] + a['qkd_param_integration_windows'][hist_num] + a['qkd_param_phases'][hist_num]), color='r', ls='--', lw=.5)
 
     plt.show()
 
@@ -47,9 +46,8 @@ Given an h5py Dataset with only two rows, plots that dataset.
 def plotHistOnly(data: h5py.Dataset):
     plt.figure()
     plt.plot(data[0], data[1])
-    plt.xlabel('time (ps)')
-    plt.ylabel('counts')
-    plt.title('histogram')
+    plt.xlabel('Time (ps)')
+    plt.ylabel('Counts')
     plt.show()
     
 """
